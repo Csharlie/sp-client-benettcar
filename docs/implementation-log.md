@@ -9,7 +9,8 @@
 | # | Hash | Üzenet | Lépés |
 |---|------|--------|-------|
 | 1 | 48edab5 | chore: scaffold benettcar client structure | #1 Scaffold |
-| 2 | 574522d | chore: add package.json, tsconfig.json, vite.config.ts (#2-#4) | #2 package.json, #3 tsconfig, #4 vite |
+| 2 | 7f4cb82 | chore: add package.json, tsconfig.json, vite.config.ts (#2-#4) | #2 package.json, #3 tsconfig, #4 vite |
+| 3 | 9baf655 | chore: add postcss.config.js (#5) | #5 postcss |
 
 ---
 
@@ -62,7 +63,7 @@ clients/benettcar/
 ## 2. package.json (file: protokoll)
 
 **Dátum:** 2025-03-25
-**Commit:** #2 – `574522d`
+**Commit:** #2 – `7f4cb82`
 
 **Cél:** A kliens projekt dependency-jeinek definiálása úgy, hogy a platform csomagokra `file:` protokollal hivatkozunk — a platform monorepo-t NEM módosítjuk.
 
@@ -91,7 +92,7 @@ clients/benettcar/
 ## 3. tsconfig.json
 
 **Dátum:** 2025-03-25
-**Commit:** #2 – `574522d`
+**Commit:** #2 – `7f4cb82`
 
 **Cél:** TypeScript compiler konfiguráció a kliens projekthez.
 
@@ -119,7 +120,7 @@ clients/benettcar/
 ## 4. vite.config.ts
 
 **Dátum:** 2025-03-25
-**Commit:** #2 – `574522d`
+**Commit:** #2 – `7f4cb82`
 
 **Cél:** Vite dev server és build konfiguráció a kliens projekthez.
 
@@ -137,5 +138,30 @@ clients/benettcar/
 - Nincs proxy — a mock adatok lokálisak, WP adapter majd később.
 
 **Fájl:** `vite.config.ts`
+
+**Státusz:** ✅ Kész
+
+---
+
+## 5. postcss.config.js
+
+**Dátum:** 2025-03-25
+**Commit:** #3 – `9baf655`
+
+**Cél:** PostCSS plugin chain a Tailwind CSS feldolgozáshoz.
+
+**Miért:**
+- A Vite a PostCSS-en keresztül dolgozza fel a CSS-t — a `tailwindcss` és `autoprefixer` plugineket itt kell regisztrálni.
+- Tailwind nélkül a semantic token utility classok (`bg-background`, `text-foreground`) nem generálódnak.
+
+**Hogyan:**
+- 1:1 másolat a starter app `postcss.config.js`-éből — standard Tailwind + autoprefixer setup.
+- ESM export (`export default`) a `"type": "module"` összhangban.
+
+**Döntések:**
+- Csak 2 plugin: `tailwindcss` (utility generálás) + `autoprefixer` (vendor prefix).
+- Nincs egyedi PostCSS plugin — a platform tokenek a Tailwind preseten és CSS custom property-ken keresztül jönnek.
+
+**Fájl:** `postcss.config.js`
 
 **Státusz:** ✅ Kész
