@@ -11,6 +11,7 @@
 | 1 | 48edab5 | chore: scaffold benettcar client structure | #1 Scaffold |
 | 2 | 7f4cb82 | chore: add package.json, tsconfig.json, vite.config.ts (#2-#4) | #2 package.json, #3 tsconfig, #4 vite |
 | 3 | 9baf655 | chore: add postcss.config.js (#5) | #5 postcss |
+| 8 | be28099 | feat: add registry.ts — 10 bc-* section registry (#10) | #10 registry |
 
 ---
 
@@ -293,5 +294,35 @@ clients/benettcar/
 - Nincs favicon egyelőre — az `assets/` mappába kerül később.
 
 **Fájlok:** `index.html`, `src/vite-env.d.ts`, `src/main.tsx`
+
+**Státusz:** ✅ Kész
+
+---
+
+## 10. registry.ts (10 bc-* section)
+
+**Dátum:** 2025-03-25
+**Commit:** #8 – `be28099`
+
+**Cél:** Section registry létrehozása a 10 Benettcar-specifikus section definition-nel, platform section-ök NÉLKÜL.
+
+**Miért:**
+- A platform `SectionRegistry` az a mechanizmus, ami a CMS-ből érkező `Section.type` stringet (pl. `"bc-hero"`) leképezi a megfelelő React komponensre.
+- A Benettcar kliens KIZÁRÓLAG saját `bc-*` prefixű section-öket regisztrál — a platform `platformSections` barrel-t NEM importáljuk. Ez biztosítja a teljes szeparációt.
+- A registry-nek a `site.ts` section sorrendjét kell tükröznie vizuális konzisztencia miatt.
+
+**Hogyan:**
+- A platform starter app `registry.ts` mintáját követtük: `createSectionRegistry()` + `registerSections()` az `@spektra/runtime`-ból.
+- 10 `bc-*` definition import (bc-hero → bc-brand → bc-gallery → bc-services → bc-service → bc-about → bc-team → bc-assistance → bc-contact → bc-map).
+- `bcSections: readonly AnySectionDefinition[]` — típustörlési határ, a platform mintája szerint.
+- Az importok a `./sections/bc-*` könyvtárakra mutatnak, amelyek a #14–#23 lépésekben jönnek létre. Addig TS error várható — ez szándékos, fokozatosan oldódik.
+
+**Döntések:**
+- `platformSections` import NINCS — zero platform section reuse, a Benettcar minden section-je egyedi `bc-*` definition.
+- A `bcSections` tömb sorrendje megegyezik a mock `site.ts` section sorrendjével (hero → map), vizuális konzisztencia.
+- `registerSections()` convenience function — nem kézi `registry.register()` hívások, a platform idiómát követjük.
+- A registry exportált (`export const registry`) — az `App.tsx` fogja importálni és átadni a `LandingTemplate`-nek.
+
+**Fájl:** `src/registry.ts`
 
 **Státusz:** ✅ Kész
