@@ -12,6 +12,7 @@
 | 2 | 7f4cb82 | chore: add package.json, tsconfig.json, vite.config.ts (#2-#4) | #2 package.json, #3 tsconfig, #4 vite |
 | 3 | 9baf655 | chore: add postcss.config.js (#5) | #5 postcss |
 | 8 | be28099 | feat: add registry.ts — 10 bc-* section registry (#10) | #10 registry |
+| 9 | 3891000 | feat: add data/site.ts — SiteData mock, WP-kompatibilis (#11) | #11 site data |
 
 ---
 
@@ -324,5 +325,43 @@ clients/benettcar/
 - A registry exportált (`export const registry`) — az `App.tsx` fogja importálni és átadni a `LandingTemplate`-nek.
 
 **Fájl:** `src/registry.ts`
+
+**Státusz:** ✅ Kész
+
+---
+
+## 11. data/site.ts (SiteData mock, WP-kompatibilis)
+
+**Dátum:** 2025-03-25
+**Commit:** #9 – `3891000`
+
+**Cél:** Teljes SiteData mock objektum létrehozása a `@spektra/types` `SiteData` típusnak megfelelően, az összes Benettcar tartalommal.
+
+**Miért:**
+- A `createJsonAdapter({ data: siteData })` ezen az objektumon dolgozik — ez az egyetlen adatforrás, amíg nincs WP adapter.
+- A `Section.data` mező **közvetlenül** a section komponens props-jaivá válik (`SectionRenderer` `{...section.data}` spread) — a kulcsoknak pontosan egyezniük kell a komponens props-jaival.
+- WP-kompatibilis: a struktúra (`SiteData → pages → sections → data`) megegyezik azzal, amit egy WordPress adapter is produkálna — az adapter cseréje nem igényel adatstruktúra változtatást.
+
+**Hogyan:**
+- A platform `SiteData` típust követtük: `site` (SiteMeta) + `navigation` (Navigation) + `pages` (Page[]).
+- Egyetlen page (`slug: 'home'`) 10 section-nel, a registry sorrendjében.
+- Minden szöveges tartalom a régi `sp-benettcar-consumer`-ből származik.
+- Unsplash placeholder képek az eredeti URL-ekkel.
+
+**Döntések:**
+- **CTA mezőnevek:** `primaryCTA` / `secondaryCTA` — a platform `CallToAction` típus + a `HeroBlock` props minta szerint (camelCase, nagybetűs rövidítés).
+- **Footer navigation:** Flat `NavItem[]` — 6 link csoportosítás nélkül. A csoportosítás a Footer komponens feladata, nem az adaté.
+- **Navigation primary:** 5 link (Galéria → Útmenti segítség). A "Kapcsolat" CTA NEM nav item — az a Header komponens DI-jaként jelenik meg.
+- **Gallery images:** Kiterjesztett Media-szerű objektumok `category` és `caption` mezőkkel — a bc-gallery saját props típusa fogja ezeket definiálni.
+- **About content:** `string[]` tömb (2 bekezdés), nem egyetlen string — a komponens `<p>` tagenként rendereli.
+- **About stats:** `{ value: string, label: string }[]` — a legacy mintát követve, `value` lehet szám vagy szó (pl. "Prémium", "Helyi", "10+").
+- **Services icon:** String név (`'Wrench'`, `'DollarSign'`, `'AlertCircle'`) — a bc-services komponens a `lucide-react`-ból importálja név alapján.
+- **Assistance:** Saját `phone` és `serviceArea` mezők — nem a contactInfo-t használja, mert ez más jellegű section.
+- **Map height:** `number` (500) — a komponens px-re fordítja.
+- **colorScheme:** Ahol releváns (`'dark' as const`) — a Benettcar mindig dark, de a platform komponensek kezelhetik a `data-color-scheme` attribútumot.
+
+**10 section sorrend:** hero → brand → gallery → services → service → about → team → assistance → contact → map
+
+**Fájl:** `src/data/site.ts`
 
 **Státusz:** ✅ Kész
