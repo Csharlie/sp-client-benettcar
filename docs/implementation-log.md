@@ -263,3 +263,35 @@ clients/benettcar/
 **Fájl:** `src/index.css`
 
 **Státusz:** ✅ Kész
+
+---
+
+## 9. index.html + vite-env.d.ts + main.tsx
+
+**Dátum:** 2025-03-25
+**Commit:** #7 – `0f8aa00`
+
+**Cél:** Az alkalmazás belépési pontjainak létrehozása — HTML shell, Vite típusdefiníció, React root mount.
+
+**Miért:**
+- `index.html` — a Vite dev server és build belépési pontja; itt töltjük be a Google Fonts-ot (Inter + Lexend) `<link>` taggel, mert ez nem blokkolja a renderelést (szemben a CSS `@import`-tal).
+- `vite-env.d.ts` — Vite client típusdefiníciók (import.meta.env, asset importok stb.).
+- `main.tsx` — React 18 `createRoot` mount, `StrictMode` wrapper, CSS import.
+
+**Hogyan:**
+- A starter app `index.html` és `main.tsx` mintáját követtük.
+- `index.html` módosítások:
+  - `<title>`: "Benett Car Business | Autószerviz Cegléd"
+  - `<meta name="description">`: VW Konszern specialist leírás
+  - Google Fonts: Inter (300–800) + Lexend (400–700), `display=swap`, `preconnect`
+- `main.tsx`: 1:1 a starter mintára — `StrictMode` + `createRoot` + `App` import + `index.css` import.
+- `vite-env.d.ts`: standard Vite triple-slash reference.
+
+**Döntések:**
+- `lang="hu"` — magyar nyelvű oldal, SEO és a11y szempontból fontos.
+- A fontokat NEM az `index.css`-ben töltjük — az kizárólag a semantic token CSS custom property-k helye.
+- Nincs favicon egyelőre — az `assets/` mappába kerül később.
+
+**Fájlok:** `index.html`, `src/vite-env.d.ts`, `src/main.tsx`
+
+**Státusz:** ✅ Kész
