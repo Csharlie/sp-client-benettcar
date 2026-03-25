@@ -14,6 +14,7 @@
 | 8 | be28099 | feat: add registry.ts — 10 bc-* section registry (#10) | #10 registry |
 | 9 | 3891000 | feat: add data/site.ts — SiteData mock, WP-kompatibilis (#11) | #11 site data |
 | 10 | 54efbac | feat: add shell/Header.tsx + Footer.tsx — DI shell (#12) | #12 shell |
+| 11 | 8501202 | feat: add App.tsx — adapter + provider + template (#13) | #13 App |
 
 ---
 
@@ -394,5 +395,34 @@ clients/benettcar/
 - `\u00a9` (©) escape a copyright-ban — encoding-biztos.
 
 **Fájlok:** `src/shell/Header.tsx`, `src/shell/Footer.tsx`, `src/shell/index.ts`
+
+**Státusz:** ✅ Kész
+
+---
+
+## 13. App.tsx (adapter + provider + template)
+
+**Dátum:** 2025-03-25
+**Commit:** #11 – `8501202`
+
+**Cél:** Az alkalmazás gyökér komponensének létrehozása — adapter inicializálás, provider wrapper, template renderelés.
+
+**Miért:**
+- Az `App.tsx` az alkalmazás összeállítási pontja: adatforrás (adapter) → kontextus (SiteDataProvider) → layout (LandingTemplate) → DI (header/footer/registry).
+- A `createJsonAdapter({ data: siteData })` a mock adatokból dolgozik — később ez egyetlen sor cseréjével WordPress adapterre váltható.
+
+**Hogyan:**
+- A starter app `App.tsx` mintáját követtük 1:1.
+- `createJsonAdapter({ data: siteData })` — modul szinten inicializálva (nem renderenként).
+- `SiteDataProvider` wrapper → `LandingTemplate` props: registry, header, footer, fallback, loading.
+- Fallback: "Ismeretlen szekció: {type}" — debug segítség fejlesztés közben.
+- Loading: "Betöltés…" — bg-background a dark theme-hez.
+
+**Döntések:**
+- Az adapter modul szinten él (`const adapter = ...`), nem a komponensben — a `SiteDataProvider` `useEffect`-je referencia-stabilitást vár.
+- Nincs `error` prop — az alapértelmezett `role="alert"` + `error.message` megfelel fejlesztés alatt.
+- Nincs `pageSlug` — egyetlen page (`home`) van, a template az elsőt veszi automatikusan.
+
+**Fájl:** `src/App.tsx`
 
 **Státusz:** ✅ Kész
