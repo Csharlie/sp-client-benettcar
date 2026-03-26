@@ -60,9 +60,9 @@ export function BcContact({
                 data-ui-id="contact-phone"
                 data-ui-action="call"
                 data-ui-trigger="click"
-                className="flex items-center gap-4 text-foreground hover:text-accent transition-colors"
+                className="flex items-center gap-4 text-foreground hover:text-neon-blue transition-colors"
               >
-                <Phone className="w-6 h-6 text-accent" />
+                <Phone className="w-6 h-6 text-neon-blue" />
                 <span className="text-lg">{contactInfo.phone}</span>
               </a>
             )}
@@ -73,15 +73,15 @@ export function BcContact({
                 data-ui-id="contact-email"
                 data-ui-action="email"
                 data-ui-trigger="click"
-                className="flex items-center gap-4 text-foreground hover:text-accent transition-colors"
+                className="flex items-center gap-4 text-foreground hover:text-neon-blue transition-colors"
               >
-                <Mail className="w-6 h-6 text-accent" />
+                <Mail className="w-6 h-6 text-neon-blue" />
                 <span className="text-lg">{contactInfo.email}</span>
               </a>
             )}
             {contactInfo.address && (
               <div className="flex items-center gap-4 text-foreground">
-                <MapPin className="w-6 h-6 text-accent" />
+                <MapPin className="w-6 h-6 text-neon-blue" />
                 <span className="text-lg">{contactInfo.address}</span>
               </div>
             )}
@@ -114,7 +114,7 @@ export function BcContact({
                   'w-full px-4 py-3 rounded-lg',
                   'bg-muted border border-border text-foreground',
                   'placeholder:text-muted-foreground',
-                  'focus:outline-none focus:ring-2 focus:ring-accent',
+                  'focus:outline-none focus:ring-2 focus:ring-neon-blue',
                 )}
               />
               <input
@@ -131,7 +131,7 @@ export function BcContact({
                   'w-full px-4 py-3 rounded-lg',
                   'bg-muted border border-border text-foreground',
                   'placeholder:text-muted-foreground',
-                  'focus:outline-none focus:ring-2 focus:ring-accent',
+                  'focus:outline-none focus:ring-2 focus:ring-neon-blue',
                 )}
               />
               <input
@@ -148,7 +148,7 @@ export function BcContact({
                   'w-full px-4 py-3 rounded-lg',
                   'bg-muted border border-border text-foreground',
                   'placeholder:text-muted-foreground',
-                  'focus:outline-none focus:ring-2 focus:ring-accent',
+                  'focus:outline-none focus:ring-2 focus:ring-neon-blue',
                 )}
               />
               <textarea
@@ -165,7 +165,7 @@ export function BcContact({
                   'w-full px-4 py-3 rounded-lg resize-none',
                   'bg-muted border border-border text-foreground',
                   'placeholder:text-muted-foreground',
-                  'focus:outline-none focus:ring-2 focus:ring-accent',
+                  'focus:outline-none focus:ring-2 focus:ring-neon-blue',
                 )}
               />
               <button
@@ -175,8 +175,8 @@ export function BcContact({
                 data-ui-action="submit-form"
                 data-ui-trigger="click"
                 className={cn(
-                  'w-full px-6 py-3 rounded-xl font-medium',
-                  'bg-accent text-accent-foreground hover:bg-accent/90',
+                  'w-full px-6 py-3 rounded-lg font-semibold',
+                  'bg-neon-blue text-graphite-950 hover:bg-neon-blue-light',
                   'transition-all',
                 )}
               >
@@ -206,7 +206,7 @@ export function BcContact({
                 data-ui-action="reset"
                 data-ui-trigger="click"
                 onClick={() => setSubmitted(false)}
-                className="text-accent hover:underline font-medium"
+                className="text-neon-blue hover:underline font-medium"
               >
                 Új üzenet küldése
               </button>

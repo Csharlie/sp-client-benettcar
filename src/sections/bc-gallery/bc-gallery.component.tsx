@@ -57,8 +57,8 @@ export function BcGallery({
               className={cn(
                 'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
                 !activeCategory
-                  ? 'bg-accent text-accent-foreground'
-                  : 'bg-muted text-muted-foreground hover:text-foreground',
+                  ? 'bg-neon-blue text-graphite-950'
+                  : 'bg-graphite-800 text-gray-400 hover:text-white',
               )}
               onClick={() => setActiveCategory(null)}
             >
@@ -75,8 +75,8 @@ export function BcGallery({
                 className={cn(
                   'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
                   activeCategory === cat
-                    ? 'bg-accent text-accent-foreground'
-                    : 'bg-muted text-muted-foreground hover:text-foreground',
+                    ? 'bg-neon-blue text-graphite-950'
+                    : 'bg-graphite-800 text-gray-400 hover:text-white',
                 )}
                 onClick={() => setActiveCategory(cat!)}
               >

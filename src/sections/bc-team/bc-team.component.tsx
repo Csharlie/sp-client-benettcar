@@ -80,7 +80,7 @@ export function BcTeam({ title, subtitle, description, members }: BcTeamData) {
                     data-ui-id={`team-phone-${member.name.toLowerCase().replace(/\s+/g, '-')}`}
                     data-ui-action="call"
                     data-ui-trigger="click"
-                    className="text-muted-foreground hover:text-accent transition-colors"
+                    className="text-gray-400 hover:text-neon-blue transition-colors"
                     aria-label={`${member.name} telefon`}
                   >
                     <Phone className="w-5 h-5" />
@@ -93,7 +93,7 @@ export function BcTeam({ title, subtitle, description, members }: BcTeamData) {
                     data-ui-id={`team-email-${member.name.toLowerCase().replace(/\s+/g, '-')}`}
                     data-ui-action="email"
                     data-ui-trigger="click"
-                    className="text-muted-foreground hover:text-accent transition-colors"
+                    className="text-gray-400 hover:text-neon-blue transition-colors"
                     aria-label={`${member.name} email`}
                   >
                     <Mail className="w-5 h-5" />

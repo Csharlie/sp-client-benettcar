@@ -50,7 +50,7 @@ export function BcServices({ title, subtitle, services }: BcServicesData) {
                 )}
               >
                 {Icon && (
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-accent/10 text-accent mb-6">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-neon-blue/10 text-neon-blue mb-6">
                     <Icon className="w-7 h-7" />
                   </div>
                 )}
