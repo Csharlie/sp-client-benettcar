@@ -1,5 +1,3 @@
-import { cn } from '@spektra/components'
-import { Phone, Mail, MapPin } from 'lucide-react'
 import { useState } from 'react'
 import type { BcContactData } from './bc-contact.schema'
 
@@ -8,7 +6,6 @@ export function BcContact({
   subtitle,
   description,
   contactInfo,
-  colorScheme,
 }: BcContactData) {
   const [submitted, setSubmitted] = useState(false)
 
@@ -17,17 +14,16 @@ export function BcContact({
       id="contact"
       data-ui-id="section-bc-contact"
       data-ui-component="bc-contact"
-      data-ui-role="contact"
-      data-color-scheme={colorScheme}
-      className="bg-graphite-900 text-foreground py-20 md:py-32"
+      data-ui-role="contact-section"
+      className="bg-graphite-900 py-24"
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6 max-w-4xl">
         <div className="text-center mb-12">
           {subtitle && (
             <p
               data-ui-id="contact-subtitle"
               data-ui-role="section-subtitle"
-              className="text-sm md:text-base font-medium text-neon-blue uppercase tracking-[0.2em] mb-4"
+              className="text-sm font-medium text-neon-blue uppercase tracking-wider mb-3"
             >
               {subtitle}
             </p>
@@ -35,7 +31,7 @@ export function BcContact({
           <h2
             data-ui-id="contact-title"
             data-ui-role="section-title"
-            className="text-4xl md:text-5xl font-bold mb-4"
+            className="text-4xl md:text-5xl font-semibold text-white mb-4 tracking-tight"
           >
             {title}
           </h2>
@@ -43,54 +39,22 @@ export function BcContact({
             <p
               data-ui-id="contact-description"
               data-ui-role="section-description"
-              className="text-lg text-muted-foreground"
+              className="text-lg text-gray-400"
             >
               {description}
             </p>
           )}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          {/* Contact info */}
-          <div className="space-y-6">
-            {contactInfo.phone && (
-              <a
-                href={`tel:${contactInfo.phone}`}
-                data-ui-type="link"
-                data-ui-id="contact-phone"
-                data-ui-action="call"
-                data-ui-trigger="click"
-                className="flex items-center gap-4 text-foreground hover:text-neon-blue transition-colors"
-              >
-                <Phone className="w-6 h-6 text-neon-blue" />
-                <span className="text-lg">{contactInfo.phone}</span>
-              </a>
-            )}
-            {contactInfo.email && (
-              <a
-                href={`mailto:${contactInfo.email}`}
-                data-ui-type="link"
-                data-ui-id="contact-email"
-                data-ui-action="email"
-                data-ui-trigger="click"
-                className="flex items-center gap-4 text-foreground hover:text-neon-blue transition-colors"
-              >
-                <Mail className="w-6 h-6 text-neon-blue" />
-                <span className="text-lg">{contactInfo.email}</span>
-              </a>
-            )}
-            {contactInfo.address && (
-              <div className="flex items-center gap-4 text-foreground">
-                <MapPin className="w-6 h-6 text-neon-blue" />
-                <span className="text-lg">{contactInfo.address}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Contact form */}
+        {/* Form Card */}
+        <div
+          data-ui-id="contact-form-container"
+          data-ui-role="form-container"
+          className="bg-graphite-900 border border-graphite-800 p-4 md:p-10 rounded-lg"
+        >
           {!submitted ? (
             <form
-              data-ui-id="bc-contact-form"
+              data-ui-id="contact-form"
               data-ui-type="form"
               data-ui-action="submit-form"
               data-ui-trigger="submit"
@@ -98,104 +62,99 @@ export function BcContact({
                 e.preventDefault()
                 setSubmitted(true)
               }}
-              className="space-y-4"
+              className="space-y-6"
             >
-              <input
-                type="text"
-                name="name"
-                required
-                placeholder="Kovács János"
-                aria-label="Név"
-                data-ui-type="input"
-                data-ui-id="contact-name"
-                data-ui-required="true"
-                data-ui-format="text"
-                className={cn(
-                  'w-full px-4 py-3 rounded-lg',
-                  'bg-muted border border-border text-foreground',
-                  'placeholder:text-muted-foreground',
-                  'focus:outline-none focus:ring-2 focus:ring-neon-blue',
-                )}
-              />
-              <input
-                type="tel"
-                name="phone"
-                required
-                placeholder="+36 30 123 4567"
-                aria-label="Telefon"
-                data-ui-type="input"
-                data-ui-id="contact-phone-input"
-                data-ui-required="true"
-                data-ui-format="tel"
-                className={cn(
-                  'w-full px-4 py-3 rounded-lg',
-                  'bg-muted border border-border text-foreground',
-                  'placeholder:text-muted-foreground',
-                  'focus:outline-none focus:ring-2 focus:ring-neon-blue',
-                )}
-              />
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="kovacs.janos@email.com"
-                aria-label="Email"
-                data-ui-type="input"
-                data-ui-id="contact-email-input"
-                data-ui-required="true"
-                data-ui-format="email"
-                className={cn(
-                  'w-full px-4 py-3 rounded-lg',
-                  'bg-muted border border-border text-foreground',
-                  'placeholder:text-muted-foreground',
-                  'focus:outline-none focus:ring-2 focus:ring-neon-blue',
-                )}
-              />
-              <textarea
-                name="message"
-                required
-                rows={5}
-                placeholder="Írja le kérését..."
-                aria-label="Üzenet"
-                data-ui-type="textarea"
-                data-ui-id="contact-message"
-                data-ui-required="true"
-                data-ui-format="text"
-                className={cn(
-                  'w-full px-4 py-3 rounded-lg resize-none',
-                  'bg-muted border border-border text-foreground',
-                  'placeholder:text-muted-foreground',
-                  'focus:outline-none focus:ring-2 focus:ring-neon-blue',
-                )}
-              />
+              <div className="grid md:grid-cols-2 gap-6">
+                <div data-ui-id="contact-name-field" data-ui-role="form-field">
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Név *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    placeholder="Kovács János"
+                    data-ui-type="input"
+                    data-ui-id="contact-name-input"
+                    data-ui-required="true"
+                    data-ui-format="text"
+                    className="w-full px-4 py-3 bg-graphite-950 border border-graphite-700 rounded text-white placeholder-gray-500 focus:ring-2 focus:ring-red-accent focus:border-transparent transition"
+                  />
+                </div>
+                <div data-ui-id="contact-phone-field" data-ui-role="form-field">
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Telefonszám *
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    placeholder="+36 30 123 4567"
+                    data-ui-type="input"
+                    data-ui-id="contact-phone-input"
+                    data-ui-required="true"
+                    data-ui-format="tel"
+                    className="w-full px-4 py-3 bg-graphite-950 border border-graphite-700 rounded text-white placeholder-gray-500 focus:ring-2 focus:ring-red-accent focus:border-transparent transition"
+                  />
+                </div>
+              </div>
+              <div data-ui-id="contact-email-field" data-ui-role="form-field">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="kovacs.janos@email.com"
+                  data-ui-type="input"
+                  data-ui-id="contact-email-input"
+                  data-ui-required="true"
+                  data-ui-format="email"
+                  className="w-full px-4 py-3 bg-graphite-950 border border-graphite-700 rounded text-white placeholder-gray-500 focus:ring-2 focus:ring-red-accent focus:border-transparent transition"
+                />
+              </div>
+              <div data-ui-id="contact-message-field" data-ui-role="form-field">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Üzenet *
+                </label>
+                <textarea
+                  name="message"
+                  required
+                  rows={5}
+                  placeholder="Írja le kérését..."
+                  data-ui-type="textarea"
+                  data-ui-id="contact-message-textarea"
+                  data-ui-required="true"
+                  data-ui-format="text"
+                  className="w-full px-4 py-3 bg-graphite-950 border border-graphite-700 rounded text-white placeholder-gray-500 focus:ring-2 focus:ring-red-accent focus:border-transparent transition resize-none"
+                />
+              </div>
               <button
                 type="submit"
                 data-ui-type="button"
-                data-ui-id="contact-submit"
+                data-ui-id="contact-submit-button"
                 data-ui-action="submit-form"
                 data-ui-trigger="click"
-                className={cn(
-                  'w-full px-6 py-3 rounded-lg font-semibold',
-                  'bg-neon-blue text-graphite-950 hover:bg-neon-blue-light',
-                  'transition-all',
-                )}
+                data-ui-role="submit-button"
+                className="w-full font-semibold py-3 px-6 rounded bg-neon-blue text-graphite-950 transition-colors hover:bg-neon-blue-light"
               >
                 Üzenet küldése
               </button>
             </form>
           ) : (
-            <div className="flex flex-col items-center justify-center text-center p-8 rounded-2xl border border-border bg-muted/50">
+            <div className="flex flex-col items-center justify-center text-center p-8">
               <p
                 data-ui-id="contact-success-title"
                 data-ui-role="feedback-title"
-                className="text-2xl font-bold mb-2"
+                className="text-2xl font-bold text-white mb-2"
               >
                 Köszönjük az üzenetet!
               </p>
               <p
                 data-ui-id="contact-success-message"
                 data-ui-role="feedback-description"
-                className="text-muted-foreground mb-6"
+                className="text-gray-400 mb-6"
               >
                 Hamarosan felvesszük Önnel a kapcsolatot.
               </p>
@@ -212,6 +171,52 @@ export function BcContact({
               </button>
             </div>
           )}
+
+          {/* Contact Info */}
+          <div
+            data-ui-id="contact-info-grid"
+            data-ui-role="contact-info"
+            className="mt-10 pt-10 border-t border-graphite-800"
+          >
+            <div className="grid md:grid-cols-3 gap-6 text-center">
+              {contactInfo.phone && (
+                <div>
+                  <p className="text-sm text-gray-400 mb-1">Telefon</p>
+                  <a
+                    href={`tel:${contactInfo.phone}`}
+                    data-ui-type="link"
+                    data-ui-id="contact-phone"
+                    data-ui-action="call"
+                    data-ui-trigger="click"
+                    className="text-white font-medium hover:text-neon-blue transition-colors"
+                  >
+                    {contactInfo.phone}
+                  </a>
+                </div>
+              )}
+              {contactInfo.email && (
+                <div>
+                  <p className="text-sm text-gray-400 mb-1">Email</p>
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    data-ui-type="link"
+                    data-ui-id="contact-email"
+                    data-ui-action="email"
+                    data-ui-trigger="click"
+                    className="text-white font-medium hover:text-neon-blue transition-colors"
+                  >
+                    {contactInfo.email}
+                  </a>
+                </div>
+              )}
+              {contactInfo.address && (
+                <div>
+                  <p className="text-sm text-gray-400 mb-1">Helyszín</p>
+                  <p className="text-white font-medium">{contactInfo.address}</p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>
