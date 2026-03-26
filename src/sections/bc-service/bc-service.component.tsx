@@ -23,7 +23,7 @@ export function BcService({
             <p
               data-ui-id="service-subtitle"
               data-ui-role="section-subtitle"
-              className="text-muted-foreground font-semibold text-lg mb-2"
+              className="text-sm md:text-base font-medium text-neon-blue uppercase tracking-[0.2em] mb-4"
             >
               {subtitle}
             </p>
