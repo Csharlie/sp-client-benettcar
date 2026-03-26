@@ -15,7 +15,7 @@ export function BcServices({ title, subtitle, services }: BcServicesData) {
       data-ui-id="section-bc-services"
       data-ui-component="bc-services"
       data-ui-role="service-list"
-      className="bg-background text-foreground py-20 md:py-32"
+      className="bg-graphite-900 text-foreground py-20 md:py-32"
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">

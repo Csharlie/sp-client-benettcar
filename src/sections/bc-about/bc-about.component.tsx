@@ -29,7 +29,7 @@ export function BcAbout({
       data-ui-component="bc-about"
       data-ui-role="about"
       data-color-scheme={colorScheme}
-      className="bg-background text-foreground py-20 md:py-32"
+      className="bg-graphite-900 text-foreground py-20 md:py-32"
     >
       <div className="container mx-auto px-4">
         <div className={cn(

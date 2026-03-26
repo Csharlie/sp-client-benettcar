@@ -17,7 +17,7 @@ export function BcAssistance({
       data-ui-component="bc-assistance"
       data-ui-role="cta"
       data-color-scheme={colorScheme}
-      className="bg-background text-foreground py-20 md:py-32"
+      className="bg-graphite-950 text-foreground py-20 md:py-32"
     >
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center">
