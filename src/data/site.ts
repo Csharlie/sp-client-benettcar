@@ -1,4 +1,10 @@
 import type { SiteData } from '@spektra/types'
+import vwLogo from '../assets/brands/vw-logo.jpg'
+import audiLogo from '../assets/brands/audi-logo.png'
+import skodaLogo from '../assets/brands/skoda-logo.png'
+import porscheLogo from '../assets/brands/porsche-logo.png'
+import lamborghiniLogo from '../assets/brands/lamborghini-logo-white.png'
+import bugattiLogo from '../assets/brands/bugatti-logo-white.png'
 
 /**
  * Benettcar mock site data — WP-kompatibilis alakban.
@@ -73,13 +79,16 @@ export const siteData: SiteData = {
           id: 'brand-1',
           type: 'bc-brand',
           data: {
+            title: 'Volkswagen Konszern és Audi járművek karbantartása és javítása',
+            description:
+              'Típusismeret és gyári megoldások azokhoz az autókhoz, amelyekkel nap mint nap dolgozunk.',
             brands: [
-              { name: 'Volkswagen' },
-              { name: 'Audi' },
-              { name: 'Škoda' },
-              { name: 'Porsche' },
-              { name: 'Bugatti' },
-              { name: 'Lamborghini' },
+              { name: 'Volkswagen', logo: vwLogo, alt: 'Volkswagen logó', invert: true },
+              { name: 'Audi', logo: audiLogo, alt: 'Audi logó' },
+              { name: 'Škoda', logo: skodaLogo, alt: 'Škoda logó', invert: true },
+              { name: 'Porsche', logo: porscheLogo, alt: 'Porsche logó', invert: true },
+              { name: 'Bugatti', logo: bugattiLogo, alt: 'Bugatti logó' },
+              { name: 'Lamborghini', logo: lamborghiniLogo, alt: 'Lamborghini logó' },
             ],
           },
         },
