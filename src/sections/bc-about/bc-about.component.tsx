@@ -1,4 +1,3 @@
-import { cn } from '@spektra/components'
 import type { BcAboutData } from './bc-about.schema'
 
 export function BcAbout({
@@ -6,44 +5,26 @@ export function BcAbout({
   subtitle,
   content,
   image,
-  imagePosition = 'right',
   stats,
   cta,
-  colorScheme,
 }: BcAboutData) {
-  const imageBlock = image && (
-    <div className="flex-1">
-      <img
-        src={image.src}
-        alt={image.alt}
-        className="rounded-2xl w-full h-auto object-cover"
-        loading="lazy"
-      />
-    </div>
-  )
-
   return (
     <section
       id="about"
       data-ui-id="section-bc-about"
       data-ui-component="bc-about"
       data-ui-role="about"
-      data-color-scheme={colorScheme}
-      className="bg-graphite-900 text-foreground py-20 md:py-32"
+      className="bg-graphite-900 text-foreground py-24"
     >
-      <div className="container mx-auto px-4">
-        <div className={cn(
-          'flex flex-col gap-12',
-          image ? 'lg:flex-row lg:items-center' : '',
-        )}>
-          {imagePosition === 'left' && imageBlock}
-
-          <div className="flex-1">
+      <div className="container mx-auto px-6 max-w-7xl">
+        <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
+          {/* Text Content */}
+          <div>
             {subtitle && (
               <p
                 data-ui-id="about-subtitle"
                 data-ui-role="section-subtitle"
-                className="text-sm md:text-base font-medium text-neon-blue uppercase tracking-[0.2em] mb-4"
+                className="text-sm font-medium text-neon-blue uppercase tracking-wider mb-3"
               >
                 {subtitle}
               </p>
@@ -51,19 +32,14 @@ export function BcAbout({
             <h2
               data-ui-id="about-title"
               data-ui-role="section-title"
-              className="text-4xl md:text-5xl font-bold mb-8"
+              className="text-4xl md:text-5xl font-semibold text-white mb-6 tracking-tight"
             >
               {title}
             </h2>
 
-            <div className="space-y-4 mb-8">
+            <div className="space-y-4 text-gray-300 leading-relaxed mb-8">
               {content.map((paragraph, i) => (
-                <p
-                  key={i}
-                  className="text-lg text-muted-foreground leading-relaxed"
-                >
-                  {paragraph}
-                </p>
+                <p key={i}>{paragraph}</p>
               ))}
             </div>
 
@@ -74,28 +50,38 @@ export function BcAbout({
                 data-ui-id="about-cta"
                 data-ui-action="navigate"
                 data-ui-trigger="click"
-                className={cn(
-                  'inline-flex items-center justify-center font-medium transition-all',
-                  'px-6 py-3 rounded-xl',
-                  'bg-accent text-accent-foreground hover:bg-accent/90',
-                )}
+                className="inline-flex items-center justify-center px-8 py-3 text-white font-semibold rounded border-2 bg-graphite-700 border-neon-blue/40 transition-colors hover:bg-graphite-600 hover:border-neon-blue-light/60"
               >
                 {cta.text}
               </a>
             )}
           </div>
 
-          {imagePosition === 'right' && imageBlock}
+          {/* Image */}
+          {image && (
+            <div className="relative h-[500px] rounded-lg overflow-hidden">
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          )}
         </div>
 
         {stats && stats.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 pt-12 border-t border-border">
+          <div
+            data-ui-id="about-stats"
+            data-ui-role="stats-grid"
+            className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-24 pb-24 border-b border-graphite-800"
+          >
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-accent mb-2">
+                <p className="text-3xl md:text-4xl font-bold text-neon-blue mb-2">
                   {stat.value}
                 </p>
-                <p className="text-muted-foreground whitespace-pre-line">
+                <p className="text-sm text-gray-400 whitespace-pre-line">
                   {stat.label}
                 </p>
               </div>

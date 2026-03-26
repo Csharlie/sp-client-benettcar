@@ -1,8 +1,8 @@
 export interface BcAssistanceData {
   title: string
   subtitle?: string
-  description: string
-  phone: string
+  description?: string
+  requestLabel?: string
+  requestHref?: string
   serviceArea?: string
-  colorScheme?: 'light' | 'dark'
 }

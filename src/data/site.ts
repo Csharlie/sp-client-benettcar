@@ -301,13 +301,13 @@ export const siteData: SiteData = {
           id: 'assistance-1',
           type: 'bc-assistance',
           data: {
-            title: 'Útmenti segítség',
-            subtitle: 'Váratlan helyzetekben is számíthat ránk',
+            title: 'Útmenti segítség, amikor szükséges',
+            subtitle: 'Kiegészítő szolgáltatás',
             description:
-              'Kiegészítő szolgáltatás meglévő szervizügyfeleink számára. Munkanapokon, a szerviz nyitvatartási idejében elérhető.',
-            phone: '+36 30 123 4567',
+              'Kiegészítő szolgáltatás meglévő szervizügyfeleink számára, váratlan helyzetekben.',
+            requestLabel: 'Útmenti segítség igénylése',
+            requestHref: '#contact',
             serviceArea: '30 km-es körzetben',
-            colorScheme: 'dark' as const,
           },
         },
 

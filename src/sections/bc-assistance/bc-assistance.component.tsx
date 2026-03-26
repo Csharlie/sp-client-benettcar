@@ -1,4 +1,3 @@
-import { cn } from '@spektra/components'
 import { Phone } from 'lucide-react'
 import type { BcAssistanceData } from './bc-assistance.schema'
 
@@ -6,26 +5,26 @@ export function BcAssistance({
   title,
   subtitle,
   description,
-  phone,
+  requestLabel,
+  requestHref,
   serviceArea,
-  colorScheme,
 }: BcAssistanceData) {
   return (
     <section
       id="roadside"
       data-ui-id="section-bc-assistance"
       data-ui-component="bc-assistance"
-      data-ui-role="cta"
-      data-color-scheme={colorScheme}
-      className="bg-graphite-950 text-foreground py-20 md:py-32"
+      data-ui-role="support-section"
+      className="bg-graphite-950 py-16"
     >
-      <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto text-center">
+      <div className="container mx-auto px-6 max-w-7xl">
+        {/* Header */}
+        <div className="text-center mb-12">
           {subtitle && (
             <p
               data-ui-id="assistance-subtitle"
               data-ui-role="section-subtitle"
-              className="text-sm md:text-base font-medium text-neon-blue uppercase tracking-[0.2em] mb-4"
+              className="text-sm font-medium text-neon-blue uppercase tracking-wider mb-3"
             >
               {subtitle}
             </p>
@@ -33,44 +32,51 @@ export function BcAssistance({
           <h2
             data-ui-id="assistance-title"
             data-ui-role="section-title"
-            className="text-4xl md:text-5xl font-bold mb-6"
+            className="text-3xl md:text-4xl font-semibold text-white mb-4 tracking-tight"
           >
             {title}
           </h2>
-          <p
-            data-ui-id="assistance-description"
-            data-ui-role="section-description"
-            className="text-lg text-muted-foreground leading-relaxed mb-10"
-          >
-            {description}
-          </p>
-
-          <a
-            href={`tel:${phone}`}
-            data-ui-type="link"
-            data-ui-id="assistance-phone"
-            data-ui-action="call"
-            data-ui-trigger="click"
-            className={cn(
-              'inline-flex items-center justify-center gap-3',
-              'px-8 py-4 text-xl font-bold rounded-xl',
-              'bg-accent text-accent-foreground hover:bg-accent/90',
-              'transition-all',
-            )}
-          >
-            <Phone className="w-6 h-6" />
-            {phone}
-          </a>
-
-          {serviceArea && (
+          {description && (
             <p
-              data-ui-id="assistance-service-area"
-              data-ui-role="meta"
-              className="mt-6 text-muted-foreground"
+              data-ui-id="assistance-description"
+              data-ui-role="section-description"
+              className="text-base text-gray-400 max-w-2xl mx-auto leading-relaxed"
             >
-              Elérhető: {serviceArea}
+              {description}
             </p>
           )}
+        </div>
+
+        {/* CTA Card */}
+        <div className="max-w-2xl mx-auto">
+          <div
+            data-ui-id="assistance-cta-card"
+            data-ui-role="cta-card"
+            className="bg-graphite-900 border border-graphite-700 p-10 rounded-lg text-center"
+          >
+            <a
+              href={requestHref ?? '#contact'}
+              data-ui-type="link"
+              data-ui-id="assistance-request-button"
+              data-ui-action="navigate"
+              data-ui-trigger="click"
+              data-ui-role="secondary-cta"
+              className="inline-flex items-center bg-graphite-700 hover:bg-graphite-600 text-white font-semibold py-3 px-8 rounded-lg border border-graphite-600 transition-colors"
+            >
+              <Phone className="w-5 h-5 mr-2" />
+              {requestLabel ?? 'Útmenti segítség igénylése'}
+            </a>
+
+            {serviceArea && (
+              <p
+                data-ui-id="assistance-service-area"
+                data-ui-role="meta"
+                className="text-sm text-gray-500 mt-6"
+              >
+                Szolgáltatási terület: {serviceArea}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </section>
