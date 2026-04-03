@@ -5,38 +5,38 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@spektra/types': link:../../platform/packages/types
-  '@spektra/data': link:../../platform/packages/data
-  '@spektra/runtime': link:../../platform/packages/runtime
-  '@spektra/components': link:../../platform/packages/components
-  '@spektra/sections': link:../../platform/packages/sections
-  '@spektra/templates': link:../../platform/packages/templates
+  '@spektra/types': link:../../sp-platform/packages/types
+  '@spektra/data': link:../../sp-platform/packages/data
+  '@spektra/runtime': link:../../sp-platform/packages/runtime
+  '@spektra/components': link:../../sp-platform/packages/components
+  '@spektra/sections': link:../../sp-platform/packages/sections
+  '@spektra/templates': link:../../sp-platform/packages/templates
 
 importers:
 
   .:
     dependencies:
       '@spektra/components':
-        specifier: link:../../platform/packages/components
-        version: link:../../platform/packages/components
+        specifier: link:../../sp-platform/packages/components
+        version: link:../../sp-platform/packages/components
       '@spektra/data':
-        specifier: link:../../platform/packages/data
-        version: link:../../platform/packages/data
+        specifier: link:../../sp-platform/packages/data
+        version: link:../../sp-platform/packages/data
       '@spektra/runtime':
-        specifier: link:../../platform/packages/runtime
-        version: link:../../platform/packages/runtime
+        specifier: link:../../sp-platform/packages/runtime
+        version: link:../../sp-platform/packages/runtime
       '@spektra/sections':
-        specifier: link:../../platform/packages/sections
-        version: link:../../platform/packages/sections
+        specifier: link:../../sp-platform/packages/sections
+        version: link:../../sp-platform/packages/sections
       '@spektra/templates':
-        specifier: link:../../platform/packages/templates
-        version: link:../../platform/packages/templates
+        specifier: link:../../sp-platform/packages/templates
+        version: link:../../sp-platform/packages/templates
       '@spektra/themes':
-        specifier: link:../../platform/packages/themes
-        version: link:../../platform/packages/themes
+        specifier: link:../../sp-platform/packages/themes
+        version: link:../../sp-platform/packages/themes
       '@spektra/types':
-        specifier: link:../../platform/packages/types
-        version: link:../../platform/packages/types
+        specifier: link:../../sp-platform/packages/types
+        version: link:../../sp-platform/packages/types
       lucide-react:
         specifier: ^0.263.1
         version: 0.263.1(react@18.3.1)

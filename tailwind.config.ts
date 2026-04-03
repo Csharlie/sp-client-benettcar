@@ -6,7 +6,7 @@ export default {
   content: [
     './index.html',
     './src/**/*.{ts,tsx}',
-    '../../platform/packages/components/src/**/*.{ts,tsx}',
-    '../../platform/packages/templates/src/**/*.{ts,tsx}',
+    '../../sp-platform/packages/components/src/**/*.{ts,tsx}',
+    '../../sp-platform/packages/templates/src/**/*.{ts,tsx}',
   ],
 } satisfies Config

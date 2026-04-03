@@ -38,7 +38,7 @@
 **Dátum:** 2025-03-25
 **Commit:** #1 – `48edab5`
 
-**Cél:** A kliens projekt könyvtárstruktúrájának létrehozása a `clients/benettcar/` alatt, a platform monorepo-tól teljesen függetlenül.
+**Cél:** A kliens projekt könyvtárstruktúrájának létrehozása a `sp-clients/benettcar/` alatt, a platform monorepo-tól teljesen függetlenül.
 
 **Miért:**
 - A kliens és a platform teljesen szeparált Git repók — a platform semmilyen szinten nem tud a kliensről.
@@ -50,13 +50,13 @@
 - 10 section könyvtár a meglévő `sp-benettcar-consumer` alapján.
 
 **Döntések:**
-- A kliens a `d:\Projects\spektra\clients\benettcar\` útvonalon él, a platform (`d:\Projects\spektra\platform\`) mellett, de attól teljesen elválasztva.
+- A kliens a `d:\Projects\spektra\sp-clients\benettcar\` útvonalon él, a platform (`d:\Projects\spektra\sp-platform\`) mellett, de attól teljesen elválasztva.
 - A platform kód semmilyen szinten nem hivatkozik a kliensre — zero coupling.
 - 10 section könyvtár: bc-hero, bc-brand, bc-gallery, bc-services, bc-service, bc-about, bc-team, bc-assistance, bc-contact, bc-map.
 
 **Létrehozott struktúra:**
 ```
-clients/benettcar/
+sp-clients/benettcar/
 └── src/
     ├── assets/
     ├── data/
@@ -87,13 +87,13 @@ clients/benettcar/
 **Cél:** A kliens projekt dependency-jeinek definiálása úgy, hogy a platform csomagokra `file:` protokollal hivatkozunk — a platform monorepo-t NEM módosítjuk.
 
 **Miért:**
-- A kliens a platform monorepo-n kívül él (`clients/benettcar/`), ezért `workspace:*` nem használható — az csak pnpm workspace-en belül működik.
+- A kliens a platform monorepo-n kívül él (`sp-clients/benettcar/`), ezért `workspace:*` nem használható — az csak pnpm workspace-en belül működik.
 - `file:` protokollal a kliens közvetlenül a platform csomagjainak forráskódjára mutat fejlesztés alatt, publish nélkül.
 - A platform kódban ZERO módosítás történik — a kliens egyoldalúan hivatkozik.
 
 **Hogyan:**
 - A starter app `package.json`-ját vettük alapul (scripts, React/Vite/TS/Tailwind verziók).
-- A `workspace:*` hivatkozásokat lecseréltük `file:../../platform/packages/*` relatív útvonalakra.
+- A `workspace:*` hivatkozásokat lecseréltük `file:../../sp-platform/packages/*` relatív útvonalakra.
 - `lucide-react` hozzáadva a `bc-services` section ikonjai miatt (Wrench, DollarSign, AlertCircle).
 - `typescript` explicit devDep — nincs monorepo hoist, a kliens önálló projekt, saját `node_modules`.
 
@@ -227,16 +227,16 @@ clients/benettcar/
 
 **Miért:**
 - A Tailwind-nek tudnia kell, hol keresse a utility classokat. Ha a platform komponensek (`NavigationBar`, `FooterBlock`, `LandingTemplate` stb.) forráskódját nem látja, nem generálja a szükséges osztályokat.
-- A kliens a `clients/benettcar/` alatt van, a platform a `platform/` alatt — a relatív utak `../../platform/packages/...` formátumúak.
+- A kliens a `sp-clients/benettcar/` alatt van, a platform a `sp-platform/` alatt — a relatív utak `../../sp-platform/packages/...` formátumúak.
 
 **Hogyan:**
 - A starter app `tailwind.config.ts` mintáját követtük, de:
   - `starterPreset` → `bcPreset` (a saját theme preset)
-  - `../../packages/...` → `../../platform/packages/...` (A kliens a platform mellett van, nem benne.)
+  - `../../packages/...` → `../../sp-platform/packages/...` (A kliens a platform mellett van, nem benne.)
 - Content paths:
   - `./index.html` + `./src/**/*.{ts,tsx}` — kliens saját fájlok
-  - `../../platform/packages/components/src/**/*.{ts,tsx}` — platform UI komponensek
-  - `../../platform/packages/templates/src/**/*.{ts,tsx}` — platform template-ek
+  - `../../sp-platform/packages/components/src/**/*.{ts,tsx}` — platform UI komponensek
+  - `../../sp-platform/packages/templates/src/**/*.{ts,tsx}` — platform template-ek
 
 **Döntések:**
 - A `sections` csomag NEM kell a content path-ba, mert minden section `bc-*` prefixű és a kliens `src/sections/` alatt él (azt a `./src/**` már lefedi).
@@ -517,7 +517,7 @@ clients/benettcar/
    - Minden input: `data-ui-format` hozzáadva (text/tel/email)
 
 **Frissített fájlok:**
-- `platform/docs/data-ui-standard.md` — §5.7 + §7 bővítés
+- `sp-platform/docs/data-ui-standard.md` — §5.7 + §7 bővítés
 - `spektra-dev/data-ui-standard.md` — §5.6 + §7 bővítés
 - 10 section component fájl
 
@@ -538,8 +538,8 @@ clients/benettcar/
 - A `pnpm.overrides` biztosítja, hogy a @spektra/* csomagok tranzitív dependencia-i (pl. a runtime-nak kell a types) is a lokális linkelt verzióra oldódjanak fel, ne a registry-re.
 
 **Hogyan:**
-- `package.json`: minden `file:../../platform/packages/*` → `link:../../platform/packages/*`.
-- `pnpm.overrides` blokk hozzáadva: 7 @spektra/* csomag → `link:../../platform/packages/*`.
+- `package.json`: minden `file:../../sp-platform/packages/*` → `link:../../sp-platform/packages/*`.
+- `pnpm.overrides` blokk hozzáadva: 7 @spektra/* csomag → `link:../../sp-platform/packages/*`.
 - `pnpm install` újrafuttatva a szimlink struktúra felépítéséhez.
 
 **Döntések:**
@@ -696,7 +696,7 @@ clients/benettcar/
 - A hero section NEM kapott újabb data-ui-t — a hero struktúra egyedi (gradient overlay, CTA-k), nem illik a standard content element pattern-be.
 - A role-ok generikusak — nem tartalmaznak `bc-*` prefixet, mert a platform standard minden kliensre érvényes.
 
-**Fájlok:** 9 section component + `platform/docs/data-ui-standard.md`
+**Fájlok:** 9 section component + `sp-platform/docs/data-ui-standard.md`
 
 **Státusz:** ✅ Kész
 
@@ -972,3 +972,45 @@ clients/benettcar/
 - **Platform standard bővítés**: `data-ui-standard.md` §5.7 content element roles — generikus, NEM kliens-specifikus.
 - **Schema bővítések**: brand (logo/alt/invert), service (services[]/contact{}), assistance (requestLabel/requestHref).
 - **CSS override stratégia**: a platform komponensek (NavigationBar) viselkedését CSS-ből írjuk felül, nem platform forkkal — zero platform módosítás.
+
+---
+
+## 30. Mappa-struktúra átnevezés (platform → sp-platform, clients → sp-clients)
+
+**Dátum:** 2026-03-27
+**Commit:** #30
+
+**Cél:** A gyökér-szintű `platform/` és `clients/` mappák átnevezése `sp-platform/` és `sp-clients/` konvencióra, az összes path-hivatkozás frissítésével.
+
+**Miért:**
+- Az `sp-` prefix egyértelműen jelöli a Spektra ökoszisztémába tartozó mappákat.
+- A konvenció összhangba került a tervezett `sp-infra/`, `sp-docs/`, `sp-modules/` stb. nevekkel.
+- A rename a WP infra bevezetése előtt történt, így az új `sp-infra/` azonnal illeszkedik a struktúrába.
+
+**Hogyan:**
+1. **Grep audit**: összes hivatkozás felderítése (`../../platform/`, `clients/benettcar`) — 29+ sor, 5+ fájl.
+2. **package.json**: 13 `link:../../platform/` → `link:../../sp-platform/` + 6 pnpm.overrides frissítés.
+3. **tailwind.config.ts**: 2 content path → `../../sp-platform/packages/*`.
+4. **node_modules törlés** (Windows lock workaround): robocopy empty-dir trick (sp-platform), rmdir (sp-clients).
+5. **Move-Item** `platform/` → `sp-platform/` — részleges hiba a long paths miatt, `git checkout -- packages/` visszaállítás.
+6. **clients/ → sp-clients/**: manuális átnevezés File Explorer-ből (VS Code file lock).
+7. **pnpm install**: mindkét repo — sp-platform (423 csomag), sp-clients/benettcar (134 csomag, 7 linked @spektra/* OK).
+8. **Build validáció**: sp-platform 8 task PASS, sp-clients/benettcar 2872 module PASS.
+9. **Dokumentáció frissítés**: implementation-log.md (12), bootstrap-log.md (3), bc-migration-plan.md (6), spektra-bootstrap-prompt.md (5), spektra-architecture-layers.md (4) — összesen 30 csere.
+
+**Döntések:**
+- `sp-` prefix — a platform összes top-level mappáján egységes naming.
+- A lock fájlokat (`pnpm-lock.yaml`) teljes regenerálás oldotta meg, nem kézi szerkesztés.
+- Dokumentáció: a `spektra-dev` referencia-fájlok is frissültek (architecture-layers, bootstrap-prompt).
+
+**Fájlok:**
+- `package.json` (19 path)
+- `tailwind.config.ts` (2 path)
+- `pnpm-lock.yaml` (regenerált)
+- `docs/implementation-log.md` (12 csere)
+- `sp-platform/docs/bootstrap-log.md` (3 csere)
+- `sp-clients/benettcar/docs/bc-migration-plan.md` (6 csere)
+- `spektra-dev/spektra-bootstrap-prompt.md` (5 csere)
+- `spektra-dev/spektra-architecture-layers.md` (4 csere)
+
+**Státusz:** ✅ Kész

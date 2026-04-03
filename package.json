@@ -11,13 +11,13 @@
     "lint": "eslint src/"
   },
   "dependencies": {
-    "@spektra/types": "link:../../platform/packages/types",
-    "@spektra/data": "link:../../platform/packages/data",
-    "@spektra/runtime": "link:../../platform/packages/runtime",
-    "@spektra/components": "link:../../platform/packages/components",
-    "@spektra/sections": "link:../../platform/packages/sections",
-    "@spektra/themes": "link:../../platform/packages/themes",
-    "@spektra/templates": "link:../../platform/packages/templates",
+    "@spektra/types": "link:../../sp-platform/packages/types",
+    "@spektra/data": "link:../../sp-platform/packages/data",
+    "@spektra/runtime": "link:../../sp-platform/packages/runtime",
+    "@spektra/components": "link:../../sp-platform/packages/components",
+    "@spektra/sections": "link:../../sp-platform/packages/sections",
+    "@spektra/themes": "link:../../sp-platform/packages/themes",
+    "@spektra/templates": "link:../../sp-platform/packages/templates",
     "lucide-react": "^0.263.1",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
@@ -34,12 +34,12 @@
   },
   "pnpm": {
     "overrides": {
-      "@spektra/types": "link:../../platform/packages/types",
-      "@spektra/data": "link:../../platform/packages/data",
-      "@spektra/runtime": "link:../../platform/packages/runtime",
-      "@spektra/components": "link:../../platform/packages/components",
-      "@spektra/sections": "link:../../platform/packages/sections",
-      "@spektra/templates": "link:../../platform/packages/templates"
+      "@spektra/types": "link:../../sp-platform/packages/types",
+      "@spektra/data": "link:../../sp-platform/packages/data",
+      "@spektra/runtime": "link:../../sp-platform/packages/runtime",
+      "@spektra/components": "link:../../sp-platform/packages/components",
+      "@spektra/sections": "link:../../sp-platform/packages/sections",
+      "@spektra/templates": "link:../../sp-platform/packages/templates"
     }
   }
 }
