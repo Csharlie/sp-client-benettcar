@@ -1,3 +1,12 @@
 node_modules
 dist
 *.tsbuildinfo
+
+# === Runtime ===
+# Assembled WP runtimes — NEVER committed
+.local/
+
+# === Environment ===
+.env
+.env.local
+.env.*.local
