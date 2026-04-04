@@ -30,6 +30,70 @@
 | 24 | e5f186c | feat: gallery lightbox + team dual layout (#27) | #27 gallery + team |
 | 25 | 8d452dc | feat: services card redesign (#28) | #28 services cards |
 | 26 | a2a379a | feat: contact section redesign (#29) | #29 contact section |
+| 27 | 65cd1e3 | chore: rename clients/ → sp-clients/, platform/ → sp-platform/ (#30) | #30 sp-prefix rename |
+| 28 | 1674e85 | chore: rename benettcar → sp-benettcar (#31) | #31 sp-benettcar rename |
+| 29 | 7b09968 | feat: update implementation log | log frissítés |
+| 30 | ce61bc9 | chore: scaffold benettcar infra overlay | #32 infra overlay scaffold |
+| 31 | f3170f0 | chore: extend .gitignore — .local/ + .env rules | #33 gitignore boundary |
+
+---
+
+## Infra Overlay napló
+
+Az alábbi bejegyzések az `infra/` overlay könyvtár létrehozásával és a v4 WP-integráció előkészítésével kapcsolatosak.
+
+---
+
+### #32 — Infra overlay scaffold (2026-04-05) · `ce61bc9`
+
+**Commit:** `chore: scaffold benettcar infra overlay`
+
+**Mi jött létre:**
+```
+infra/
+├── config.php       ← Kliens-specifikus WP config placeholder (Phase 3 tölti ki)
+├── acf/
+│   └── README.md    ← Jövőbeli bc-* ACF field group definíciók helye
+├── env/
+│   └── README.md    ← Jövőbeli runtime env fájlok helye
+└── docs/
+    └── README.md    ← Jövőbeli overlay dokumentáció helye
+```
+
+**Miért:**
+- v4 roadmap P1.3: kliens infra overlay scaffold
+- Az overlay a kliens repo része (`sp-benettcar/infra/`), de nem futtatható önmagában
+- A runtime-ba symlink-kel kerül be (Phase 4)
+
+**Döntések:**
+1. Minimum scaffold — csak struktúra, tartalom Phase 3-ban jön
+2. `config.php` placeholder — real CORS + plugin config P3.1-ben
+3. `acf/` — bc-* field groups P3.3/P6.2-ben
+4. PHP fájlok — a WP plugin PHP-t vár, az overlay is PHP
+
+**Boundary szabályok:**
+- `infra/` ≠ runtime → nem indítható, nem WP mappa
+- `infra/` = verziózott → git-ben követve
+- `infra/` = kliens-specifikus → soha nem kerül sp-infra-ba
+
+---
+
+### #33 — Gitignore boundary rules (2026-04-05) · `f3170f0`
+
+**Commit:** `chore: extend .gitignore — .local/ + .env rules`
+
+**Változás:**
+```
+.gitignore  ← bővítés: .local/, .env, .env.local, .env.*.local
+```
+
+**Miért:**
+- v4 roadmap P1.4: .gitignore + boundary rules
+- `.local/` = assembled WP runtime helye → SOHA nem commitolható
+- `.env` fájlok = lokális environment → nem commitolható
+
+**Kapcsolódó sp-infra commit:**
+- `75c7cb7` — sp-infra: .gitignore + BOUNDARY.md létrehozás (azonos P1.4 todo)
 
 ---
 
