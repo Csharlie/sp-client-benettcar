@@ -1,0 +1,68 @@
+# Benettcar – Infra Overlay Log
+
+**Remote:** https://github.com/Csharlie/sp-benettcar
+**Scope:** `infra/` overlay + v4 WP-integráció előkészítés
+
+> A frontend implementation log: [implementation-log.md](implementation-log.md)
+
+---
+
+## Commit napló
+
+| # | Hash | Üzenet | Lépés |
+|---|------|--------|-------|
+| 30 | ce61bc9 | chore: scaffold benettcar infra overlay | #32 infra overlay scaffold |
+| 31 | f3170f0 | chore: extend .gitignore — .local/ + .env rules | #33 gitignore boundary |
+
+---
+
+## #32 — Infra overlay scaffold (2026-04-05) · `ce61bc9`
+
+**Commit:** `chore: scaffold benettcar infra overlay`
+
+**Mi jött létre:**
+```
+infra/
+├── config.php       ← Kliens-specifikus WP config placeholder (Phase 3 tölti ki)
+├── acf/
+│   └── README.md    ← Jövőbeli bc-* ACF field group definíciók helye
+├── env/
+│   └── README.md    ← Jövőbeli runtime env fájlok helye
+└── docs/
+    └── README.md    ← Jövőbeli overlay dokumentáció helye
+```
+
+**Miért:**
+- v4 roadmap P1.3: kliens infra overlay scaffold
+- Az overlay a kliens repo része (`sp-benettcar/infra/`), de nem futtatható önmagában
+- A runtime-ba symlink-kel kerül be (Phase 4)
+
+**Döntések:**
+1. Minimum scaffold — csak struktúra, tartalom Phase 3-ban jön
+2. `config.php` placeholder — real CORS + plugin config P3.1-ben
+3. `acf/` — bc-* field groups P3.3/P6.2-ben
+4. PHP fájlok — a WP plugin PHP-t vár, az overlay is PHP
+
+**Boundary szabályok:**
+- `infra/` ≠ runtime → nem indítható, nem WP mappa
+- `infra/` = verziózott → git-ben követve
+- `infra/` = kliens-specifikus → soha nem kerül sp-infra-ba
+
+---
+
+## #33 — Gitignore boundary rules (2026-04-05) · `f3170f0`
+
+**Commit:** `chore: extend .gitignore — .local/ + .env rules`
+
+**Változás:**
+```
+.gitignore  ← bővítés: .local/, .env, .env.local, .env.*.local
+```
+
+**Miért:**
+- v4 roadmap P1.4: .gitignore + boundary rules
+- `.local/` = assembled WP runtime helye → SOHA nem commitolható
+- `.env` fájlok = lokális environment → nem commitolható
+
+**Kapcsolódó sp-infra commit:**
+- `75c7cb7` — sp-infra: .gitignore + BOUNDARY.md létrehozás (azonos P1.4 todo)
